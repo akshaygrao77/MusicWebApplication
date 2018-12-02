@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Bootstrap Theme Company Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://webproject-ab93a.firebaseapp.com/css/test.css" rel="stylesheet">
+    <script src="https://webproject-ab93a.firebaseapp.com/js/my_js.js"></script>
+    
+    <script>
+      
+      firebase.initializeApp(config);
+    </script>
+    <script>
+      firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById("lscallbutton").style.display="none";
+        document.getElementById("signoutbtn").style.display="block";
+      } else {
+        document.getElementById("lscallbutton").style.display="block";
+        document.getElementById("signoutbtn").style.display="none";
+      }
+    });
+    </script>
+  <div id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+      
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>                        
+            </button>
+            <a class="navbar-brand" href="#myPage">Explore Music</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="index.html#trending_music">Trending Music</a></li>
+              <li><a href="index.html#about_us">About us</a></li>
+              <li><a href="index.html#contact">CONTACT</a></li>
+              <li><a href="index1.html">Music Library</a></li>
+              <li><button id="lscallbutton" type="button" class="btn navbar-btn btn-success" data-toggle="modal" data-target="#loginsignuppopup">Login/Signup</button></li>
+              <li><button id="signoutbtn" type="button" class="btn navbar-btn btn-danger" style="display: none" onclick="signoutuser(1);">Sign-out</button></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+  </div>
+  
+  <div id="loginsignuppopup" class="modal fade" role="dialog" style="margin-top: 30px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" onclick="clearallfields();">&times;</button>
+          <h4 class="modal-title">Login/Signup</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#flogin" onclick="togglelsbutton('l');">Login</a></li>
+              <li><a data-toggle="tab" href="#fsignup" onclick="togglelsbutton('s');">Sign-up</a></li>
+          </ul>
+          <div class="tab-content">
+              <div id="flogin" class="tab-pane fade in active">
+                <h3>Login</h3>
+                <div id="lstatus" class="alert alert-success" style="display: none">
+                  <strong id="lstatusstrong">Success!</strong> Indicates a successful or positive action.
+                </div>
+                <hr>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="lemail" type="text" class="form-control" name="lemail" placeholder="Email">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="lpass" type="password" class="form-control" name="lpass" placeholder="Password">
+                </div>
+                <br>
+              </div>
+              <div id="fsignup" class="tab-pane fade">
+                <h3>Signup</h3>
+                <div id="sstatus" class="alert alert-success" style="display:none">
+                  <strong id="sstatusstrong">Success!</strong> Indicates a successful or positive action.
+                </div>
+                <hr>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                  <input id="sname" type="text" class="form-control" name="sname" placeholder="Name">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                  <input id="semail" type="text" class="form-control" name="semail" placeholder="Email">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                  <input id="sphone" type="number" class="form-control" name="sphone" placeholder="Number">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="spass" type="password" class="form-control" name="spass" placeholder="Password">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                  <input id="scpass" type="password" class="form-control" name="scpass" placeholder="Confirm Password">
+                </div>
+                <br>
+              </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="tgglelsbutton" type="button" class="btn btn-success" value="Login" onclick="validateform(tgglelsbutton.value);">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="loginsuccessmodal" class="modal fade" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+                <strong>Success!</strong> Login Successfully!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="signoutalert" class="modal fade" role="dialog" style="margin-top: 50px">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success">
+                <strong>Success!</strong> Signout Successfully!
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>  
+    </div>
+  </div>  
+  <!-- Company name and theme-->
+  <div class="jumbotron text-center">
+  <h1>Trend Player</h1> 
+  <p>Let the music take you away.</p> 
+  <!--<form>-->
+  <!--  <div class="input-group">-->
+  <!--      <input type="text" class="form-control" size="50" placeholder="Search">-->
+  <!--      <div class="input-group-btn">-->
+  <!--        <button class="btn btn-default" type="button">-->
+  <!--          <i class="glyphicon glyphicon-search"></i>-->
+  <!--        </button>-->
+  <!--      </div>-->
+  <!--  </div> -->
+  <!--</form>-->
+  </div>
+  
+  <!-- Container for Trending Music-->
+  <div id="trending_music" class="container-fluid">
+  <div class="text-center">
+    <h2>Trending Music</h2>
+    <h4>Select a music to enjoy top trending music</h4>
+  </div>
+  <div class="row slideanim">
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>#1</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>Song:</strong> Ondu malebillu</p>
+          <p><strong>Movie:</strong> Chakravarthi</p>
+          <p><strong>Artist:</strong> Armaan Malik</p>
+        </div>
+        <div class="panel-footer">
+          <h3></h3>
+          <h4></h4>
+          <!--<button class="btn btn-lg">Play Now</button>-->
+        </div>
+      </div>      
+    </div>     
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>#2</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>Song:</strong> Marete Hodenu</p>
+          <p><strong>Movie:</strong> Dayavittu Gamanisi</p>
+          <p><strong>Artist:</strong> Vasishta Simha</p>
+        </div>
+        <div class="panel-footer">
+          <h3></h3>
+          <h4></h4>
+          <!--<button class="btn btn-lg">Play Now</button>-->
+        </div>
+      </div>      
+    </div>       
+    <div class="col-sm-4 col-xs-12">
+      <div class="panel panel-default text-center">
+        <div class="panel-heading">
+          <h1>#3</h1>
+        </div>
+        <div class="panel-body">
+          <p><strong>Song:</strong> Shaakuntale sikkalu</p>
+          <p><strong>Movie:</strong> Naduve Antaravirali</p>
+          <p><strong>Artist:</strong> sanjith Hegde</p>
+        </div>
+        <div class="panel-footer">
+          <h3></h3>
+          <h4></h4>
+          <!--<button class="btn btn-lg">Play Now</button>-->
+        </div>
+      </div>      
+    </div>    
+  </div>
+  
+  <!-- Top trending artist names-->
+  
+  <div id="top_artists" class="container-fluid text-center bg-grey">
+  <h2>Top 3 Artists of the week</h2><br>
+  <div class="row text-center slideanim">
+    <div class="col-sm-4">
+      <div class="thumbnail">
+        <img src="https://webproject-ab93a.firebaseapp.com/images/Arjitsingh.jpg" alt="Arjith Singh" width="400" height="300">
+        <p><strong>Arjith Singh</strong></p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="thumbnail">
+        <img src="https://webproject-ab93a.firebaseapp.com/images/sonu_nigam.jpg" alt="Sonu Nigam" width="400" height="300">
+        <p><strong>Sonu Nigam</strong></p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="thumbnail">
+        <img src="https://webproject-ab93a.firebaseapp.com/images/Armaan.jpg" alt="Armaan Malik" width="400" height="300">
+        <p><strong>Armaan Malik</strong></p>
+      </div>
+    </div>
+  </div><br>
+  </div>  
+  
+  
+  <!-- Container (About Section) -->
+  <div id="about_us" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>About Trend Player</h2><br>
+      <h4>Trend Player is a online music player that can be used to play audio files and has the ability to play them with ease</h4><br>
+      <p>Trend Player is a online music player which has huge collection of audio files in which user can listen to their favourite songs with free of cost at any time.</p>
+      <br><button onclick="window.location.href='#contact';" class="btn btn-default btn-lg">Get in Touch</button>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-signal logo"></span>
+    </div>
+  </div>
+  </div>
+  
+  <div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+    </div>
+    <div class="col-sm-8">
+      <h2>How do we work</h2><br>
+      <h4>Trend Player is linked with firebase in the backend</h4><br>
+      <p>Firebase is a database where the songs are stored. Trend player is a web app which is linked to firebase that allows user to quickly gather and visualize data of their favourite tracks, albums and artists and user can also listen to their favourite songs.</p>
+  </div>
+  
+  <h2>User Reviews </h2>
+  <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+  
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <h4>"This app is the best. I am so happy with the app!"<br><span>John, singer</span></h4>
+      </div>
+      <div class="item">
+        <h4>"One word... WOW!!"<br><span>Ram, Salesman</span></h4>
+      </div>
+      <div class="item">
+        <h4>"Could I... BE any more happy with this app?"<br><span>Prem, Actor</span></h4>
+      </div>
+    </div>
+  
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  </div> 
+  </div>
+  
+  
+  <!-- Container (Contact Section) -->
+  <div id="contact" class="container-fluid bg-grey">
+  <h2 class="text-center">CONTACT</h2>
+  <div class="row">
+    <div class="col-sm-5">
+      <p>Contact us and we'll get back to you within 24 hours.</p>
+      <p><span class="glyphicon glyphicon-map-marker"></span> BNMIT,Banashankari Stage II, Banashankari Bengaluru, Karnataka 560070</p>
+      <p><span class="glyphicon glyphicon-phone"></span> +91-80-26711782</p>
+      <p><span class="glyphicon glyphicon-envelope"></span> bnmitprincipal@gmail.com</p>
+    </div>
+    <!--<div class="col-sm-7 slideanim">-->
+    <!--  <div class="row">-->
+    <!--    <div class="col-sm-6 form-group">-->
+    <!--      <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>-->
+    <!--    </div>-->
+    <!--    <div class="col-sm-6 form-group">-->
+    <!--      <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--  <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>-->
+    <!--  <div class="row">-->
+    <!--    <div class="col-sm-12 form-group">-->
+    <!--      <button class="btn btn-default pull-right" type="submit">Send</button>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</div>-->
+  </div>
+  </div>
+  
+  <!-- Add Google Maps -->
+  <div id="googleMap" style="height:400px;width:100%;"></div>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhqQMBcPowRyWmAnPq98bwQkbw_TUzF8Q&callback=myMap"></script>
+  <!--
+  To use this code on your website, get a free API key from Google.
+  Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+  -->
+  
+  <footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Developed By Akshay G Rao & Darshan C S</p>
+  </footer>
+  
+  <script>
+  $(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+  
+      // Store hash
+      var hash = this.hash;
+  
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+  
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+  });
+  $(document).ready(function(){
+    var user=firebase.auth().currentUser;
+    if(user!=null)
+    {
+        document.getElementById("lscallbutton").style.display="none";
+        document.getElementById("signoutbtn").style.display="block";
+    }
+    else
+    {
+        document.getElementById("lscallbutton").style.display="block";
+        document.getElementById("signoutbtn").style.display="none";
+    }
+  });
+  </script>
+  </body>
+  </html>
